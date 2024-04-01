@@ -1,20 +1,19 @@
 <%= render 'pages/level1_nav' %>
 <h1>Index</h1>
+<%= render 'index_nav' %>
 <table cellpadding="5">
     <tr>
         <th>id</th>
         <th>name</th>
         <th>created_at</th>
         <th>updated_at</th>
-        <th></th>
     </tr>
     <tr>
         <% @projects.each do |project| %>
             <td><%= project.id %></td>
-            <td><%= project.name %></td>
+            <td><%= link_to project.name, project_path(project) %></td>
             <td><%= project.created_at %></td>
             <td><%= project.updated_at %></td>
-            <td><%= link_to 'New', new_project_path  %></td>
         <%end %>
     </tr>
 </table>
