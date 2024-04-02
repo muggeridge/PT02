@@ -8,12 +8,12 @@
         <th>created_at</th>
         <th>updated_at</th>
     </tr>
-    <tr>
-        <% @projects.each do |project| %>
+    <% @projects.each do |project| %>
+        <tr>
             <td><%= project.id %></td>
             <td><%= link_to project.name, project_path(project) %></td>
             <td><%= project.created_at %></td>
             <td><%= project.updated_at %></td>
-        <%end %>
-    </tr>
+        </tr>
+    <%end %>
 </table>

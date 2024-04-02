@@ -8,12 +8,12 @@
         <th>created_at</th>
         <th>updated_at</th>
     </tr>
-    <tr>
-        <% @users.each do |user| %>
+    <% @users.each do |user| %>
+        <tr>
             <td><%= user.id %></td>
             <td><%= link_to user.last_name, user_path(user) %></td>
             <td><%= user.created_at %></td>
             <td><%= user.updated_at %></td>
-        <%end %>
-    </tr>
+        </tr>
+    <%end %>
 </table>
