@@ -1,0 +1,14 @@
+<%= render 'pages/level1_nav' %>
+<h1><%= @user.last_name %></h1>
+
+<p><strong>Projects</strong></p>
+<table cellpadding="5">
+    <%@user.projects.sort_by {|obj| obj.name}.each do |project| %>
+        <tr>
+            <td>
+                <%= link_to project.name, project_path(project) %>
+            </td>
+        </tr>
+    <%end%>
+
+</table>
