@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   # root "posts#index"
   root 'pages#home'
   resources :projects
+  resources :project_roles
   resources :users
 end

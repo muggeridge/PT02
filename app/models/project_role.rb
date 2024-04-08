@@ -1,5 +1,5 @@
 
-class ProjectUser < ApplicationRecord
+class ProjectRole < ApplicationRecord
     belongs_to :user
     belongs_to :project
 end

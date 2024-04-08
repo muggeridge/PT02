@@ -12,3 +12,11 @@
     <%end%>
 
 </table>
+
+
+<p><strong>Add User to Project</strong></p>
+<%= form_with model: ProjectRole do |form| %>
+    <%= form.select :user, @user_last_names %>
+    <%= form.hidden_field :project_id, value: @project.id %>
+    <%= form.submit "Add selected user" %>
+<% end %>
