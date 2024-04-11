@@ -12,3 +12,21 @@
     <%end%>
 
 </table>
+
+<p><strong>Time Logs</strong></p>
+<table cellpadding="5">
+    <tr>
+        <th>Project</th>
+        <th>Progress comment</th>
+    </tr>
+    <%@user.time_logs.each do |time_log| %>
+        <tr>
+            <td>
+                <%= time_log.project.name %>
+            </td>
+            <td>
+                <%= time_log.progress_comment %>
+            </td>
+        </tr>
+    <%end%>
+</table>

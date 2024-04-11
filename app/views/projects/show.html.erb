@@ -10,7 +10,6 @@
             </td>
         </tr>
     <%end%>
-
 </table>
 
 
@@ -20,3 +19,21 @@
     <%= form.hidden_field :project_id, value: @project.id %>
     <%= form.submit "Assign" %>
 <% end %>
+
+<p><strong>Time Logs</strong></p>
+<table cellpadding="5">
+    <tr>
+        <th>User</th>
+        <th>Progress comment</th>
+    </tr>
+    <%@project.time_logs.each do |time_log| %>
+        <tr>
+            <td>
+                <%= time_log.user.last_name %>
+            </td>
+            <td>
+                <%= time_log.progress_comment %>
+            </td>
+        </tr>
+    <%end%>
+</table>
