@@ -7,7 +7,6 @@ class TimeLogsController < ApplicationController
     end
     def create
         @time_log = TimeLog.new(time_log_params)
-        binding.break
         if( @time_log.save )
             redirect_to time_logs_path
         else
@@ -18,6 +17,10 @@ class TimeLogsController < ApplicationController
     private
 
     def time_log_params
-        params.require(:time_log).permit(:user_id, :project_id, :progress_comment)
+        params.require(:time_log).permit(
+            :user_id, 
+            :project_id, 
+            :progress_comment
+        )
     end
 end
