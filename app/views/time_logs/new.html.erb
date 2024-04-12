@@ -1,3 +1,15 @@
 
 <%= render 'pages/level1_nav' %>
 <h1>New Time Log</h1>
+
+<%= form_with do |form| %>
+    <%= form.select :user_id, User.all.collect { |user| [user.last_name, user.id] } %>
+    <%= form.select :project_id, Project.all.collect { |project| [project.name, project.id] } %>
+    <br>
+    <p>Progress Comment</p>
+    <%= form.text_field :progress_comment %>
+    <br>
+    <br>
+
+    <%= form.submit "Create" %>
+<% end %>
