@@ -1,0 +1,23 @@
+<%= render 'pages/level1_nav' %>
+<h1>Index</h1>
+<%= render 'index_nav' %>
+<table cellpadding="5">
+    <tr>
+        <th>id</th>
+        <th>project</th>
+        <th>user</th>
+        <th>progress_comment</th>
+        <th>created_at</th>
+        <th>updated_at</th>
+    </tr>
+    <% @time_logs.each do |time_log| %>
+        <tr>
+            <td><%= time_log.id %></td>
+            <td><%= link_to time_log.project.name, project_path(time_log.project) %></td>
+            <td><%= link_to time_log.user.last_name, user_path(time_log.user) %></td>
+            <td><%= time_log.progress_comment %></td>
+            <td><%= time_log.created_at %></td>
+            <td><%= time_log.updated_at %></td>
+        </tr>
+    <%end %>
+</table>
