@@ -15,7 +15,7 @@ class TimeLogsController < ApplicationController
     end
 
     def destroy 
-        if TimeLog.find(params["id"]).destroy
+        if TimeLog.find(params[:id]).destroy
             redirect_to time_logs_path
         else
             redirect_to root_path
