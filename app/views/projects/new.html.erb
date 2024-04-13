@@ -1,2 +1,11 @@
 <%= render 'pages/level1_nav' %>
 <h1>New Project</h1>
+
+<%= form_with model: Project do |form| %>
+    <p>Name</p>
+    <%= form.text_field :name, value:"" %>
+    <br>
+    <br>
+
+    <%= form.submit "Create" %>
+<% end %>
