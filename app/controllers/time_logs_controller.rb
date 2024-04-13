@@ -2,8 +2,6 @@
 class TimeLogsController < ApplicationController
     def index
         @time_logs = TimeLog.all
-
-        @time_log = TimeLog.first
     end
     def new
     end
@@ -16,16 +14,12 @@ class TimeLogsController < ApplicationController
         end
     end
 
-    def delete
-    end
-
     def destroy 
-        if TimeLog.last.destroy
+        if TimeLog.find(params["id"]).destroy
             redirect_to time_logs_path
         else
             redirect_to root_path
         end
-
     end
 
     private
