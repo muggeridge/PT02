@@ -1,2 +1,11 @@
 <%= render 'pages/level1_nav' %>
 <h1>New User</h1>
+
+<%= form_with model: User do |form| %>
+    <p>Last Name</p>
+    <%= form.text_field :last_name %>
+    <br>
+    <br>
+
+    <%= form.submit "Create" %>
+<% end %>
