@@ -1,8 +1,10 @@
 <%= render 'pages/level1_nav' %>
-<h1>Index</h1>
+<h1>Time Logs</h1>
 <%= render 'index_nav' %>
+
 <table cellpadding="5">
     <tr>
+        <th>delete?</th>
         <th>id</th>
         <th>project</th>
         <th>user</th>
@@ -12,6 +14,7 @@
     </tr>
     <% @time_logs.each do |time_log| %>
         <tr>
+            <td><%= button_to "Delete", TimeLog.find(time_log.id), :method => :delete %></td>
             <td><%= time_log.id %></td>
             <td><%= link_to time_log.project.name, project_path(time_log.project) %></td>
             <td><%= link_to time_log.user.last_name, user_path(time_log.user) %></td>
@@ -21,3 +24,7 @@
         </tr>
     <%end %>
 </table>
+
+<br>
+
+

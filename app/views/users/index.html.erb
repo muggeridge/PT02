@@ -1,9 +1,10 @@
 
 <%= render 'pages/level1_nav' %>
-<h1>Index</h1>
+<h1>Users</h1>
 <%= render 'index_nav' %>
 <table cellpadding="5">
     <tr>
+        <th>delete?</th>
         <th>id</th>
         <th>last_name</th>
         <th>created_at</th>
@@ -11,6 +12,7 @@
     </tr>
     <% @users.each do |user| %>
         <tr>
+            <td><%= button_to "Delete", User.find(user.id), :method => :delete %></td>
             <td><%= user.id %></td>
             <td><%= link_to user.last_name, user_path(user) %></td>
             <td><%= user.created_at %></td>
