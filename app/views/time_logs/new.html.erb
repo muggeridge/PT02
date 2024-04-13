@@ -3,8 +3,8 @@
 <h1>New Time Log</h1>
 
 <%= form_with model: TimeLog do |form| %>
-    <%= form.select :user_id, User.all.collect { |user| [user.last_name, user.id] } %>
-    <%= form.select :project_id, Project.all.collect { |project| [project.name, project.id] } %>
+    <%= form.select :user_id, User.all.collect { |user| [user.last_name, user.id] }, {:prompt => "Select user"} %>
+    <%= form.select :project_id, Project.all.collect { |project| [project.name, project.id] }, {:prompt => "Select project"}  %>
     <br>
     <p>Progress Comment</p>
     <%= form.text_field :progress_comment %>
