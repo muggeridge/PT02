@@ -15,7 +15,7 @@
 
 <p><strong>Assign User to Project</strong></p>
 <%= form_with model: ProjectRole do |form| %>
-    <%= form.select :user_id, User.all.collect { |user| [user.last_name, user.id] } %>
+    <%= form.select :user_id, User.all.collect { |user| [user.last_name, user.id] }, {:prompt => "Select user"} %>
     <%= form.hidden_field :project_id, value: @project.id %>
     <%= form.submit "Assign" %>
 <% end %>
