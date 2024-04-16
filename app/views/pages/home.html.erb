@@ -1,2 +1,6 @@
 <%= render 'level1_nav'%>
 <h1>Home</h1>
+
+<% if flash[:notice] %>
+    <%= flash[:notice] %>
+<% end %>
