@@ -5,6 +5,7 @@
 <%= form_with model: TimeLog do |form| %>
     <%= form.select :user_id, User.all.collect { |user| [user.last_name, user.id] }, {:prompt => "Select user"} %>
     <%= form.select :project_id, Project.all.collect { |project| [project.name, project.id] }, {:prompt => "Select project"}  %>
+    <%= form.select :week_num_id, collect_weeks(), {:selected => week_num_id(Date.today)} %>
     <br>
     <p>Progress Comment</p>
     <%= form.text_field :progress_comment %>

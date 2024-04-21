@@ -27,7 +27,8 @@ class TimeLogsController < ApplicationController
     def time_log_params
         params.require(:time_log).permit(
             :user_id, 
-            :project_id, 
+            :project_id,
+            :week_num_id, 
             :progress_comment
         )
     end
