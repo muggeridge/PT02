@@ -1,0 +1,97 @@
+
+<%= render 'pages/level1_nav' %>
+<h1>Bulk Time Log Entry</h1>
+
+
+<%= form_with model: @form_bulk_time_log do |form| %>
+    <%= form.select :user_id, User.all.collect { |user| [user.last_name, user.id] }, {:prompt => "Select user"} %>
+    <%= form.select :week_num_id, collect_weeks(), {:selected => week_num_id(Date.today)} %>
+    <br>
+    <br>
+    <br>
+    <br>
+    <% project_collection = Project.all.collect { |project| [project.name, project.id] } %>
+
+    <table>
+        <tr>
+            <th></th>
+            <th><%= form.select :project_id_p1, project_collection, {:prompt => "Select project"} %></th>
+            <th><%= form.select :project_id_p2, project_collection, {:prompt => "Select project"} %></th>
+        </tr>
+        <tr>
+            <td>Monday</td>
+            <td><%= form.number_field :mon_hours_p1, step: 0.25%></td>
+            <td><%= form.number_field :mon_hours_p2, step: 0.25%></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><%= form.text_area :mon_progress_comment_p1 %></td>
+            <td><%= form.text_area :mon_progress_comment_p2 %></td>
+        </tr>
+        <tr>
+            <td>Tuesday</td>
+            <td><%= form.number_field :tues_hours_p1, step: 0.25%></td>
+            <td><%= form.number_field :tues_hours_p2, step: 0.25%></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><%= form.text_area :tues_progress_comment_p1 %></td>
+            <td><%= form.text_area :tues_progress_comment_p2 %></td>
+        </tr>
+        <tr>
+            <td>Wednesday</td>
+            <td><%= form.number_field :wed_hours_p1, step: 0.25%></td>
+            <td><%= form.number_field :wed_hours_p2, step: 0.25%></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><%= form.text_area :wed_progress_comment_p1 %></td>
+            <td><%= form.text_area :wed_progress_comment_p2 %></td>
+        </tr>
+        <tr>
+            <td>Thursday</td>
+            <td><%= form.number_field :thur_hours_p1, step: 0.25%></td>
+            <td><%= form.number_field :thur_hours_p2, step: 0.25%></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><%= form.text_area :thur_progress_comment_p1 %></td>
+            <td><%= form.text_area :thur_progress_comment_p2 %></td>
+        </tr>
+        <tr>
+            <td>Friday</td>
+            <td><%= form.number_field :fri_hours_p1, step: 0.25%></td>
+            <td><%= form.number_field :fri_hours_p2, step: 0.25%></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><%= form.text_area :fri_progress_comment_p1 %></td>
+            <td><%= form.text_area :fri_progress_comment_p2 %></td>
+        </tr>
+        <tr>
+            <td>Saturday</td>
+            <td><%= form.number_field :sat_hours_p1, step: 0.25%></td>
+            <td><%= form.number_field :sat_hours_p2, step: 0.25%></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><%= form.text_area :sat_progress_comment_p1 %></td>
+            <td><%= form.text_area :sat_progress_comment_p2 %></td>
+        </tr>
+        <tr>
+            <td>Sunday</td>
+            <td><%= form.number_field :sun_hours_p1, step: 0.25%></td>
+            <td><%= form.number_field :sun_hours_p2, step: 0.25%></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><%= form.text_area :sun_progress_comment_p1 %></td>
+            <td><%= form.text_area :sun_progress_comment_p2 %></td>
+        </tr>
+
+    </table>
+    <br>
+    <br>
+
+    <%= form.submit "Submit" %>
+<% end %>

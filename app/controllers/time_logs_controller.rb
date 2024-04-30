@@ -29,6 +29,8 @@ class TimeLogsController < ApplicationController
             :user_id, 
             :project_id,
             :week_num_id, 
+            :date,
+            :hours,
             :progress_comment
         )
     end

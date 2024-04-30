@@ -7,6 +7,46 @@
     <%= form.select :project_id, Project.all.collect { |project| [project.name, project.id] }, {:prompt => "Select project"}  %>
     <%= form.select :week_num_id, collect_weeks(), {:selected => week_num_id(Date.today)} %>
     <br>
+    <br>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <th></th>
+            <th><%= form.select :test1, Project.all.collect { |project| [project.name, project.id] }, {:prompt => "Select project"} %></th>
+            <th><%= form.select :test2, Project.all.collect { |project| [project.name, project.id] }, {:prompt => "Select project"} %></th>
+        </tr>
+        <tr>
+            <td>Monday</td>
+            <td><%= form.number_field :val1, step: 0.25%></td>
+            <td><%= form.number_field :val1, step: 0.25%></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><%= form.text_area :val1 %></td>
+            <td><%= form.text_area :val1 %></td>
+        </tr>
+        <tr>
+            <td>Tuesday</td>
+        </tr>
+        <tr>
+            <td>Wednesday</td>
+        </tr>
+        <tr>
+            <td>Thursday</td>
+        </tr>
+        <tr>
+            <td>Friday</td>
+        </tr>
+        <tr>
+            <td>Saturday</td>
+        </tr>
+        <tr>
+            <td>Sunday</td>
+        </tr>
+
+    </table>
+    <br>
     <p>Progress Comment</p>
     <%= form.text_field :progress_comment %>
     <br>
