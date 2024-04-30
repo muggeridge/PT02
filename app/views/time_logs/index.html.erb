@@ -8,8 +8,10 @@
         <th>delete?</th>
         <th>id</th>
         <th>week (week num id)</th>
+        <th>date</th>
         <th>project</th>
         <th>user</th>
+        <th>hours</th>
         <th>progress_comment</th>
     </tr>
     <% @time_logs.each do |time_log| %>
@@ -17,8 +19,10 @@
             <td><%= button_to "Delete", TimeLog.find(time_log.id), :method => :delete %></td>
             <td><%= time_log.id %></td>
             <td><%= week_desc_from_week_num_id(time_log.week_num_id) %> (<%= time_log.week_num_id%>)</td>
+            <td><%= time_log.date %></td>
             <td><%= link_to time_log.project.name, project_path(time_log.project) %></td>
             <td><%= link_to time_log.user.last_name, user_path(time_log.user) %></td>
+            <td><%= time_log.hours %></td>
             <td><%= time_log.progress_comment %></td>
         </tr>
     <%end %>
