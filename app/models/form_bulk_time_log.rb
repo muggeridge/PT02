@@ -1,16 +1,17 @@
 class FormBulkTimeLog
     include ActiveModel::Model
 
-    attr_accessor :user_id, :week_num_id, :project_id_p1, :project_id_p2, 
-                  :mon_hours_p1, :mon_hours_p2, :mon_progress_comment_p1, :mon_progress_comment_p2,
-                  :tues_hours_p1, :tues_hours_p2, :tues_progress_comment_p1, :tues_progress_comment_p2,
-                  :wed_hours_p1, :wed_hours_p2, :wed_progress_comment_p1, :wed_progress_comment_p2,
-                  :thur_hours_p1, :thur_hours_p2, :thur_progress_comment_p1, :thur_progress_comment_p2,
-                  :fri_hours_p1, :fri_hours_p2, :fri_progress_comment_p1, :fri_progress_comment_p2,
-                  :sat_hours_p1, :sat_hours_p2, :sat_progress_comment_p1, :sat_progress_comment_p2,
-                  :sun_hours_p1, :sun_hours_p2, :sun_progress_comment_p1, :sun_progress_comment_p2
+    attr_accessor :user_id, :week_num_id, :project_ids,  
+                  :mon_hours, :mon_progress_comments,
+                  :tues_hours, :tues_progress_comments,
+                  :wed_hours, :wed_progress_comments,
+                  :thur_hours, :thur_progress_comments,
+                  :fri_hours, :fri_progress_comments,
+                  :sat_hours, :sat_progress_comments,
+                  :sun_hours, :sun_progress_comments
 
     validate :project_id_selected_and_day_entries_valid 
+
 
     def save
         return false if invalid?
@@ -18,90 +19,19 @@ class FormBulkTimeLog
         first_date_of_week = Date.commercial(@week_num_id.to_s[0..3].to_i,@week_num_id.to_s[4..5].to_i)
 
         ActiveRecord::Base.transaction do
-            if @project_id_p1 != ""  
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p1,
-                                week_num_id: @week_num_id,
-                                date: first_date_of_week.advance(days: 0),
-                                hours: @mon_hours_p1,
-                                progress_comment: @mon_progress_comment_p1) if @mon_progress_comment_p1 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p1,
-                                week_num_id: @week_num_id,
-                                date: first_date_of_week.advance(days: 1),
-                                hours: @tues_hours_p1,
-                                progress_comment: @tues_progress_comment_p1) if @tues_progress_comment_p1 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p1,
-                                week_num_id: @week_num_id,
-                                date: first_date_of_week.advance(days: 2),
-                                hours: @wed_hours_p1,
-                                progress_comment: @wed_progress_comment_p1) if @wed_progress_comment_p1 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p1,
-                                week_num_id: @week_num_id,
-                                date: first_date_of_week.advance(days: 3),
-                                hours: @thur_hours_p1,
-                                progress_comment: @thur_progress_comment_p1) if @thur_progress_comment_p1 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p1,
-                                week_num_id: @week_num_id,
-                                date: first_date_of_week.advance(days: 4),
-                                hours: @fri_hours_p1,
-                                progress_comment: @fri_progress_comment_p1) if @fri_progress_comment_p1 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p1,
-                                week_num_id: @week_num_id,
-                                date: first_date_of_week.advance(days: 5),
-                                hours: @sat_hours_p1,
-                                progress_comment: @sat_progress_comment_p1) if @sat_progress_comment_p1 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p1,
-                                week_num_id: @week_num_id,
-                                date: first_date_of_week.advance(days: 6),
-                                hours: @sun_hours_p1,
-                                progress_comment: @sun_progress_comment_p1) if @sun_progress_comment_p1 != "" 
+            @project_ids.each_with_index do |project_id, i|   
+                if project_id != ""
+                    7.times do |j| 
+                        hours = hours_from_index(j,i) 
+                        TimeLog.create!(user_id: @user_id,
+                                    project_id: project_id,
+                                    week_num_id: @week_num_id,
+                                    date: first_date_of_week.advance(days: j),
+                                    hours: hours,
+                                    progress_comment: progress_from_index(j,i)) if hours != "" 
+                    end
+                end
             end
-
-            if @project_id_p2 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p2,
-                                week_num_id: @week_num_id,
-                                hours: @mon_hours_p2,
-                                progress_comment: @mon_progress_comment_p2) if @mon_progress_comment_p2 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p2,
-                                week_num_id: @week_num_id,
-                                hours: @tues_hours_p2,
-                                progress_comment: @tues_progress_comment_p2) if @tues_progress_comment_p2 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p2,
-                                week_num_id: @week_num_id,
-                                hours: @wed_hours_p2,
-                                progress_comment: @wed_progress_comment_p2) if @wed_progress_comment_p2 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p2,
-                                week_num_id: @week_num_id,
-                                hours: @thur_hours_p2,
-                                progress_comment: @thur_progress_comment_p2) if @thur_progress_comment_p2 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p2,
-                                week_num_id: @week_num_id,
-                                hours: @fri_hours_p2,
-                                progress_comment: @fri_progress_comment_p2) if @fri_progress_comment_p2 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p2,
-                                week_num_id: @week_num_id,
-                                hours: @sat_hours_p2,
-                                progress_comment: @sat_progress_comment_p2) if @sat_progress_comment_p2 != "" 
-                TimeLog.create!(user_id: @user_id,
-                                project_id: @project_id_p2,
-                                week_num_id: @week_num_id,
-                                hours: @sun_hours_p2,
-                                progress_comment: @sun_progress_comment_p2) if @sun_progress_comment_p2 != "" 
-
-            end
-            
         end
         true
 
@@ -112,33 +42,53 @@ class FormBulkTimeLog
 
     private
 
+    def progress_from_index(day_index, project_index)
+        days = [:mon, :tues, :wed, :thur, :fri, :sat, :sun]
+        str = days[day_index].to_s + "_progress_comments"
+        instance_variable_get("@" + str)[project_index]
+    end
+
+    def hours_from_index(day_index, project_index)
+        days = [:mon, :tues, :wed, :thur, :fri, :sat, :sun]
+        str = days[day_index].to_s + "_hours"
+        instance_variable_get("@" + str)[project_index]
+    end
+
     def project_id_selected_and_day_entries_valid 
         valid = true
-        if @project_id_p1 != "" 
-            valid = !( @mon_progress_comment_p1 == "" && 
-                    @tues_progress_comment_p1 == "" && 
-                    @wed_progress_comment_p1 == "" && 
-                    @thur_progress_comment_p1 == "" && 
-                    @fri_progress_comment_p1 == "" && 
-                    @sat_progress_comment_p1 == "" && 
-                    @sun_progress_comment_p1 == "" ) 
+        @project_ids.each_with_index do |project_id, i| 
+            all_pairs = [
+                            [@mon_hours[i],   @mon_progress_comments[i]  ],  
+                            [@tues_hours[i],  @tues_progress_comments[i] ], 
+                            [@wed_hours[i],   @wed_progress_comments[i]  ],
+                            [@thur_hours[i],  @thur_progress_comments[i] ],
+                            [@fri_hours[i],   @fri_progress_comments[i]  ],
+                            [@sat_hours[i],   @sat_progress_comments[i]  ],
+                            [@sun_hours[i],    @sun_progress_comments[i] ]
+                        ]
+            valid_pair_count = 0
+            blank_pair_count = 0
+            all_pairs.each do |pair|
+                if pair[0] == "" and pair[1] == ""
+                    blank_pair_count += 1
+                elsif pair[0] != "" and pair[1] != ""
+                    valid_pair_count += 1
+                end
+            end
+            invalid_pair_count = 7 - valid_pair_count - blank_pair_count
 
-        end
-        if @project_id_p2 != "" 
-            valid = !( @mon_progress_comment_p2 == "" && 
-                    @tues_progress_comment_p2 == "" && 
-                    @wed_progress_comment_p2 == "" && 
-                    @thur_progress_comment_p2 == "" && 
-                    @fri_progress_comment_p2 == "" && 
-                    @sat_progress_comment_p2 == "" && 
-                    @sun_progress_comment_p2 == "" ) 
-        end
+            if  (project_id != "" and invalid_pair_count == 0 and valid_pair_count > 0 )  or
+                (project_id == "" and blank_pair_count == 7)
 
-        if valid == false
-            errors.add("form validation", "project selected but at least 1 progress comment not made")
+                valid = true
+            else
+                valid = false
+                
+                errors.add("form validation", "project column " + (i+1).to_s + ": project not selected or hours/progress pair incomplete")
+            end
         end
-
         valid
+
     end
 
 end
